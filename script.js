@@ -102,12 +102,14 @@ function evaluate() {
                 displayValue[i] = multiply(a,b);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
+                evaluate();
             } else {
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
                 displayValue[i] = divide(a,b);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
+                evaluate();
             }
         } else if (displayValue[i] === "+" || displayValue[i] === "-"){
             if(displayValue[i] === "+") {
@@ -116,13 +118,20 @@ function evaluate() {
                 displayValue[i] = add(a,b);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
+                evaluate();
             } else {
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
                 displayValue[i] = subtract(a,b);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
+                evaluate();
             }
         }
     }
 }
+
+//need to add previous answer to the top 
+//make sure decimals do not overflow
+//disable . button if one is already in displayCalc
+//add keybaord functionality
