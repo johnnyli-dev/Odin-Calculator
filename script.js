@@ -169,7 +169,11 @@ document.addEventListener('keydown', (event) => {
         displayCalc = "";
         displayValue = [];
     } else {
-        if(name === "+") {
+        if(name === "Backspace") {
+            displayCalc = (displayCalc.slice(0, displayCalc.length - 1));
+            displayTemp.splice(displayTemp.length-1);
+            update();
+        } else if(name === "+") {
             displayValue.push(displayCalc, name);
             displayTemp.push(name);
             update();
