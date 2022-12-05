@@ -20,6 +20,9 @@ body {
     color: white;
     font-family: 'Secular One', sans-serif;
     font-size: 20px;
+    /*if you want the transition not to fire on page start-up put
+    the CSS link before the js link*/
+    transition: background-color, 0.5s;
 }
 
 main {
@@ -49,6 +52,9 @@ main {
     font-size: 40px;
     border: solid 2.5px #251749;
     margin: 0;
+    max-width: 330px;
+    padding-right: 5px;
+    overflow-wrap: break-word;
 }
 
 .largerButtons {
@@ -61,4 +67,13 @@ main {
     color: white;
     font-family: 'Secular One', sans-serif;
     font-size: 20px;
+    transition: background-color 0.2s;
+}
+
+.numbers:hover {
+    background-color: #9298e0;
+}
+
+.largerButtons:hover {
+    background-color: #9298e0;
 }
