@@ -34,11 +34,13 @@ main {
 }
 
 .display {
+    position: relative;
     background-color: #495579;
     color: white;
     width: 100%;
     text-align: right;
     margin-bottom: 10px;
+    height: 64px;
 }
 
 .calcContainer {
@@ -76,4 +78,12 @@ main {
 
 .largerButtons:hover {
     background-color: #9298e0;
+}
+
+.prevAnswer {
+    position: absolute;
+    top:-9px;
+    left: 6px;
+    font-size: 13px;
+    opacity: 0.5;
 }

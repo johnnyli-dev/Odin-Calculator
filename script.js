@@ -1,11 +1,17 @@
+//what is calculated from
 let displayValue = [];
+//what is shown
 let displayTemp = [];
+//my way of combined numbers if into one element seperated by operators.
 let displayCalc = "";
 const buttons = document.querySelectorAll(".numbers");
 const lButtons = document.querySelectorAll(".largerButtons");
 const displayPort = document.querySelector(".CalcDisplay");
+const prevAnswer = document.querySelector(".prevAnswer");
+
 
 function add(a,b) {
+    //parseInt to make it an integer from a string so you can add correctly
     return (parseInt(a) + parseInt(b)).toString();
 }
 
@@ -28,7 +34,7 @@ buttons.forEach(element => {
             evaluate();
             displayTemp = displayValue;
             update();
-            console.log(displayValue);
+            //reset all values
             displayTemp = [];
             displayCalc = "";
             displayValue = [];
@@ -36,25 +42,21 @@ buttons.forEach(element => {
         if(element.id === "+") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
-            console.log(displayValue);
             update();
             displayCalc = "";
         } else if(element.id === "-") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
-            console.log(displayValue);
             update();
             displayCalc = "";
         } else if(element.id === "*") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
-            console.log(displayValue);
             update();
             displayCalc = "";
         } else if (element.id === "/") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
-            console.log(displayValue);
             update();
             displayCalc = "";
         } else {
@@ -74,10 +76,10 @@ lButtons.forEach(element => {
             displayCalc = "";
             displayTemp = [];
             displayValue = [];
+            prevAnswer.innerHTML = "";
         } else {
             //delete
             displayCalc = (displayCalc.slice(0, displayCalc.length - 1));
-            console.log(displayCalc);
             displayTemp.splice(displayTemp.length-1);
             update();
         }
@@ -85,28 +87,28 @@ lButtons.forEach(element => {
 });
 
 function update() {
-    if(displayTemp.length < 1) {
-        displayPort.innerHTML = "0";
-        displayTemp = [];
-    } else {
-        displayPort.innerHTML = displayTemp.join("");
-    }
+    displayPort.innerHTML = displayTemp.join("");
 }
 
 function evaluate() {
+    //Show Previous answer in the top right
+    prevAnswer.innerHTML = displayTemp.join("") + " = ";
     for(let i = 0; i < displayValue.length; i++) {
+        //PEMDAS
         if(displayValue[i] === "*" || displayValue[i] === "/") {
             if(displayValue[i] === "*") {
+                //first calculate the value of the elements to the left and right of the operator
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
-                displayValue[i] = multiply(a,b);
+                displayValue[i] = round(multiply(a,b), 3);
+                //set the operator to the answer and splice out the two numbers to the left and right
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
                 evaluate();
             } else {
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
-                displayValue[i] = divide(a,b);
+                displayValue[i] = round(divide(a,b), 3);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
                 evaluate();
@@ -115,23 +117,25 @@ function evaluate() {
             if(displayValue[i] === "+") {
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
-                displayValue[i] = add(a,b);
+                displayValue[i] = round(add(a,b), 3);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
                 evaluate();
             } else {
                 let a = displayValue[i-1];
                 let b = displayValue[i + 1];
-                displayValue[i] = subtract(a,b);
+                displayValue[i] = round(subtract(a,b), 3);
                 displayValue.splice(i+1,1);             
                 displayValue.splice(i-1,1);
                 evaluate();
             }
-        }
+        } 
     }
 }
 
-//need to add previous answer to the top 
-//make sure decimals do not overflow
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
 //disable . button if one is already in displayCalc
 //add keybaord functionality
