@@ -1,0 +1,64 @@
+body {
+    font-family: 'Secular One', sans-serif;
+    background-color: #FFFBEB;
+}
+
+.buttonContainer {
+    display: flex;
+    width: 330px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.numbers {
+    padding: 10px;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border: none;
+    background-color: #495579;
+    color: white;
+    font-family: 'Secular One', sans-serif;
+    font-size: 20px;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.display {
+    background-color: #495579;
+    color: white;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.calcContainer {
+    background-color: #263159;
+    border: solid 5px #251749;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.CalcDisplay {
+    font-size: 40px;
+    border: solid 2.5px #251749;
+    margin: 0;
+}
+
+.largerButtons {
+    padding: 10px;
+    border-radius: 10%;
+    width: 160px;
+    height: 50px;
+    border: none;
+    background-color: #495579;
+    color: white;
+    font-family: 'Secular One', sans-serif;
+    font-size: 20px;
+}
