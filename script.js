@@ -8,6 +8,8 @@ const buttons = document.querySelectorAll(".numbers");
 const lButtons = document.querySelectorAll(".largerButtons");
 const displayPort = document.querySelector(".CalcDisplay");
 const prevAnswer = document.querySelector(".prevAnswer");
+const dotButton = document.getElementById(".");
+let usedDot = false;
 
 
 function add(a,b) {
@@ -33,6 +35,7 @@ buttons.forEach(element => {
             displayValue.push(displayCalc);
             evaluate();
             displayTemp = displayValue;
+            usedDot = false;
             update();
             //reset all values
             displayTemp = [];
@@ -44,22 +47,29 @@ buttons.forEach(element => {
             displayTemp.push(element.id);
             update();
             displayCalc = "";
+            usedDot = false;
         } else if(element.id === "-") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
             update();
+            usedDot = false;
             displayCalc = "";
         } else if(element.id === "*") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
             update();
             displayCalc = "";
+            usedDot = false;
         } else if (element.id === "/") {
             displayValue.push(displayCalc, element.id);
             displayTemp.push(element.id);
             update();
             displayCalc = "";
+            usedDot = false;
         } else {
+            if(element.id === ".") {
+                usedDot = true;
+            }
             displayCalc += element.id;
             displayTemp.push(element.id);
             update();
@@ -87,6 +97,14 @@ lButtons.forEach(element => {
 });
 
 function update() {
+    //so you cant use multiple decimals in one number
+    if(usedDot) {
+        dotButton.disabled = true;
+        dotButton.style.color = "red";
+    } else {
+        dotButton.disabled = false;
+        dotButton.style.color = "white";
+    }
     displayPort.innerHTML = displayTemp.join("");
 }
 
@@ -137,5 +155,53 @@ function round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
-//disable . button if one is already in displayCalc
-//add keybaord functionality
+document.addEventListener('keydown', (event) => {
+    //Keyboard functionality
+    let name = (event.key).toString();
+    if (name === "Enter") {
+        displayValue.push(displayCalc);
+        evaluate();
+        displayTemp = displayValue;
+        usedDot = false;
+        update();
+        //reset all values
+        displayTemp = [];
+        displayCalc = "";
+        displayValue = [];
+    } else {
+        if(name === "+") {
+            displayValue.push(displayCalc, name);
+            displayTemp.push(name);
+            update();
+            displayCalc = "";
+            usedDot = false;
+        } else if(name === "-") {
+            displayValue.push(displayCalc, name);
+            displayTemp.push(name);
+            update();
+            usedDot = false;
+            displayCalc = "";
+        } else if(name === "*") {
+            displayValue.push(displayCalc, name);
+            displayTemp.push(name);
+            update();
+            displayCalc = "";
+            usedDot = false;
+        } else if (name === "/") {
+            displayValue.push(displayCalc, name);
+            displayTemp.push(name);
+            update();
+            displayCalc = "";
+            usedDot = false;
+        } else if (!isNaN(parseInt(name))){
+            //check to see if it is a number
+            if(name === ".") {
+                usedDot = true;
+            }
+            displayCalc += name;
+            displayTemp.push(name);
+            update();
+        }
+    }
+  }, false);
+
